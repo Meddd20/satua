@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "422438445111",
+    "project_id": "satua-app",
+    "storage_bucket": "satua-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422438445111:android:4918edb3198ce0e7579fb2",
+        "android_client_info": {
+          "package_name": "com.example.satua"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn0_OVKm9-No3ypgROwly9Rcd8bjKcUSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

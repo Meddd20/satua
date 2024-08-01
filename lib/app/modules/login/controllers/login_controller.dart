@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// ignore: unused_import
-import 'package:satua/app/modules/home/views/home_view.dart';
-import 'package:satua/app/routes/app_pages.dart';
+import 'package:satua/app/common/toast_helper.dart';
+import 'package:satua/app/services/auth_service.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
+  final AuthService authService = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  Rx<bool> obscurePassword = Rx<bool>(true);
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -20,11 +22,25 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   void login() {
-    Get.toNamed(Routes.HOME);
-  }
+    if (emailController.text.isEmpty) {
+      showToast('Email cannot be empty');
+      return;
+    }
 
-  void increment() => count.value++;
+    if (!emailController.text.isEmail) {
+      showToast('Invalid email format');
+      return;
+    }
+
+    if (passwordController.text.isEmpty) {
+      showToast('Password cannot be empty');
+      return;
+    }
+    authService.loginAccount(emailController.text.trim(), passwordController.text.trim());
+  }
 }

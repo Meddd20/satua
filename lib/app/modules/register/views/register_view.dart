@@ -26,46 +26,31 @@ class RegisterView extends GetView<RegisterController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 40),
                       Center(
                         child: Image.asset(
                           '${AssetManager.imagePath}/awan-kuning.png',
                           height: 113,
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 40),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Email',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Color(0xFF666666))),
-                          const SizedBox(
-                              height: 8.0), // Gap between label and input
+                          const Text('Email', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const SizedBox(height: 8.0),
                           TextFormField(
+                            controller: controller.emailController,
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              labelStyle: const TextStyle(
-                                  fontSize: 12.0,
-                                  color: Color(
-                                      0xFF666666)), // Font size and color for label
+                              labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width: 1.0), // Border style
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width:
-                                        1.0), // Border style (use the same for focus)
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                               ),
                             ),
                           ),
@@ -77,111 +62,82 @@ class RegisterView extends GetView<RegisterController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Password',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Color(0xFF666666))),
-                          const SizedBox(
-                              height: 8.0), // Gap between label and input
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelStyle: const TextStyle(
-                                  fontSize: 12.0,
-                                  color: Color(
-                                      0xFF666666)), // Font size and color for label
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width: 1.0), // Border style
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width:
-                                        1.0), // Border style (use the same for focus)
+                          const Text('Password', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const SizedBox(height: 8.0),
+                          Obx(
+                            () => TextFormField(
+                              controller: controller.passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: controller.obscurePassword.value,
+                              decoration: InputDecoration(
+                                labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () => controller.obscurePassword.value = !controller.obscurePassword.value,
+                                  icon: Icon(
+                                    controller.obscurePassword.value ? Icons.visibility_off : Icons.visibility,
+                                    color: Color(0xFF666666),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Display Name',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Color(0xFF666666))),
-                          const SizedBox(
-                              height: 8.0), // Gap between label and input
+                          const Text('Display Name', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const SizedBox(height: 8.0),
                           TextFormField(
+                            controller: controller.usernameController,
+                            keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                              labelStyle: const TextStyle(
-                                  fontSize: 12.0,
-                                  color: Color(
-                                      0xFF666666)), // Font size and color for label
+                              labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width: 1.0), // Border style
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8.0), // Border radius
-                                borderSide: const BorderSide(
-                                    color: Color(0xFFE8E8E8),
-                                    width:
-                                        1.0), // Border style (use the same for focus)
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 60,
-                      ),
+                      const SizedBox(height: 60),
                       ElevatedButton(
                         onPressed: controller.register,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFF00B567), // Your background color
-                          textStyle: const TextStyle(
-                              color: Color.fromARGB(
-                                  255, 255, 255, 255)), // Text color
+                          backgroundColor: const Color(0xFF00B567),
+                          textStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(8.0), // Border radius
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 16.0, horizontal: 32.0),
-                          // Makes the button as wide as the parent container:
-                          minimumSize: const Size.fromHeight(
-                              50), // Adjust height if needed
+                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                          minimumSize: const Size.fromHeight(50),
                         ),
                         child: const Text(
                           'Register',
-                          style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16),
+                          style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
-                      const SizedBox(
-                        height: 26,
-                      ),
+                      const SizedBox(height: 26),
                       InkWell(
                         onTap: () => Get.toNamed(Routes.LOGIN),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Already have an account?',
-                                style: TextStyleManager.mediumGray()),
+                            Text('Already have an account?', style: TextStyleManager.mediumGray()),
                             Text(
                               ' Login now!',
                               style: TextStyleManager.mediumGray(
@@ -191,9 +147,7 @@ class RegisterView extends GetView<RegisterController> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 35,
-                      ),
+                      const SizedBox(height: 35),
                     ],
                   ),
                 ),
@@ -203,10 +157,7 @@ class RegisterView extends GetView<RegisterController> {
                 child: Center(
                   child: Text(
                     "Copyright © 2024 Story.AI. All Rights Reserved.",
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.normal,
-                        color: Color(0xFF666666)),
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
                   ),
                 ),
               ),
