@@ -72,7 +72,7 @@ class ResultController extends GetxController {
         categories.value = categoryMatch.group(1)!.toString().trim();
       }
 
-      if (content != '' && body.value == '') {
+      if (content != '' && body.value == '' && questions.value == '') {
         showCustomToastWithRetry(userPrompt);
       }
 
@@ -93,47 +93,16 @@ class ResultController extends GetxController {
 
   void showCustomToastWithRetry(String userPrompt) {
     Fluttertoast.showToast(
-      msg: "The story format is invalid. Retry?",
+      msg: "The story format is invalid. Retrying...",
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-
-    Fluttertoast.showToast(
-      msg: "Retry",
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
       textColor: Colors.white,
       fontSize: 16.0,
     );
 
     Future.delayed(Duration(seconds: 2), () {
-      Fluttertoast.showToast(
-        msg: "Retry",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.blue,
-        textColor: Colors.white,
-        fontSize: 16.0,
-        webShowClose: true,
-        webPosition: "center",
-        timeInSecForIosWeb: 1,
-        webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
-      ).then((value) => generateStory(userPrompt));
+      generateStory(userPrompt);
     });
-  }
-
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 }

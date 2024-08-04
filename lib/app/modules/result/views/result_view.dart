@@ -32,7 +32,7 @@ class ResultView extends GetView<ResultController> {
               style: TextStyleManager.titleGreen(),
             ),
           ),
-          body: controller.title.value != '' && controller.body.value != ''
+          body: controller.title.value != '' && controller.body.value != '' && controller.questions.value != ''
               ? SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Column(
