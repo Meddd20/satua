@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:satua/app/core/theme_manager/assets_manager.dart';
 import 'package:satua/app/core/theme_manager/text_style_manager.dart';
 import 'package:satua/app/routes/app_pages.dart';
+import 'package:satua/app/services/auth_service.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -17,7 +18,9 @@ class HomeView extends GetView<HomeController> {
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
-            onPressed: () {},
+            onPressed: () {
+              AuthService().logout();
+            },
           ),
         ],
       ),

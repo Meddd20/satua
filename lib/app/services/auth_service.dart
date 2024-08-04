@@ -15,7 +15,7 @@ class AuthService {
 
       await addUserDetails(email, username);
       await Future.delayed(const Duration(seconds: 1));
-      Get.offAllNamed(Routes.LOGIN);
+      Get.offNamed(Routes.LOGIN);
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {
