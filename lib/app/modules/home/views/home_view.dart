@@ -19,7 +19,71 @@ class HomeView extends GetView<HomeController> {
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
             onPressed: () {
-              AuthService().logout();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: const Color(0xFFFFFFFF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    title: Column(
+                      children: [
+                        const SizedBox(height: 15),
+                        Text(
+                          "Logout Confirmation",
+                          style: TextStyleManager.titleGreen(fontSize: 24),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          "Are you sure you want to logged out?",
+                          style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    actionsPadding: const EdgeInsets.fromLTRB(35, 20, 35, 35),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () => Get.back(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFDE00),
+                          textStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                          minimumSize: const Size.fromHeight(50),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () => AuthService().logout(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFF6F6F6),
+                          textStyle: const TextStyle(color: Color(0xFFBDBDBD)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                          minimumSize: const Size.fromHeight(50),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

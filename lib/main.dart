@@ -25,19 +25,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Application",
-      initialRoute: initialUid != '' ? Routes.HOME : AppPages.INITIAL,
-      getPages: AppPages.routes,
-      debugShowCheckedModeBanner: false,
-    );
-    // return DevicePreview(
-    //   isToolbarVisible: false,
-    //   builder: (context) => GetMaterialApp(
-    //     title: "Application",
-    //     initialRoute: AppPages.INITIAL,
-    //     getPages: AppPages.routes,
-    //   ),
+    // return GetMaterialApp(
+    //   title: "Application",
+    //   initialRoute: initialUid != '' ? Routes.HOME : AppPages.INITIAL,
+    //   getPages: AppPages.routes,
+    //   debugShowCheckedModeBanner: false,
     // );
+    return DevicePreview(
+      isToolbarVisible: true,
+      builder: (context) => GetMaterialApp(
+        title: "Application",
+        initialRoute: initialUid != '' ? Routes.HOME : AppPages.INITIAL,
+        getPages: AppPages.routes,
+        debugShowCheckedModeBanner: false,
+      ),
+    );
   }
 }
