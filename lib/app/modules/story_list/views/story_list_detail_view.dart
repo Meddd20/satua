@@ -129,7 +129,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.fromLTRB(30, 50, 30, 20),
           child: Column(
             children: [
               Container(
@@ -191,10 +191,14 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                   ],
                 ),
               ),
-              const Center(
-                child: Text(
-                  "Copyright © 2024 Story.AI. All Rights Reserved.",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
+              const SizedBox(height: 40),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Text(
+                    "Copyright © 2024 Story.AI. All Rights Reserved.",
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
+                  ),
                 ),
               ),
             ],

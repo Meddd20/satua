@@ -11,6 +11,7 @@ abstract class Routes {
   static const STORY_LIST = _Paths.STORY_LIST;
   static const RESULT = _Paths.RESULT;
   static const TRACKER = _Paths.TRACKER;
+  static const PROFILE_GALLERY = _Paths.PROFILE_GALLERY;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const STORY_LIST = '/story-list';
   static const RESULT = '/result';
   static const TRACKER = '/tracker';
+  static const PROFILE_GALLERY = '/profile-gallery';
 }

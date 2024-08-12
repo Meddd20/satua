@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:satua/app/core/theme_manager/text_style_manager.dart';
 import 'package:satua/app/routes/app_pages.dart';
 import '../controllers/tracker_controller.dart';
 
@@ -9,13 +10,11 @@ class TrackerView extends GetView<TrackerController> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> months = ['Juli', 'Agustus'];
-    final List<int> days = [7, 15];
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Relive your stories',
-          style: TextStyle(color: Colors.green, fontSize: 22, fontWeight: FontWeight.bold, fontFamily: "inter"),
+          style: TextStyleManager.titleGreen(),
         ),
         leading: Row(
           children: [
@@ -140,6 +139,16 @@ class TrackerView extends GetView<TrackerController> {
                     },
                   ),
                 ),
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Center(
+                    child: Text(
+                      "Copyright © 2024 Story.AI. All Rights Reserved.",
+                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
               ],
             ),
           );

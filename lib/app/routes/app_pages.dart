@@ -8,6 +8,8 @@ import '../modules/loading_1/bindings/loading_1_binding.dart';
 import '../modules/loading_1/views/loading_1_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/profile_gallery/bindings/profile_gallery_binding.dart';
+import '../modules/profile_gallery/views/profile_gallery_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/result/bindings/result_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.TRACKER,
       page: () => const TrackerView(),
       binding: TrackerBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_GALLERY,
+      page: () => const ProfileGalleryView(),
+      binding: ProfileGalleryBinding(),
     ),
   ];
 }
