@@ -31,12 +31,18 @@ class DetailsView extends GetView<DetailsController> {
                 const SizedBox(height: 8.0),
                 TypeAheadField<Profile>(
                   builder: (context, controller, focusNode) {
-                    return TextField(
+                    return TextFormField(
                       controller: controller,
                       focusNode: focusNode,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                        ),
                       ),
                     );
                   },

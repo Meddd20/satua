@@ -32,6 +32,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
           PopupMenuButton(
             onSelected: (String value) {
               if (value == 'Edit') {
+                Get.toNamed(Routes.DETAILS, arguments: controller.story);
               } else if (value == 'Delete') {
                 showDialog(
                   context: context,

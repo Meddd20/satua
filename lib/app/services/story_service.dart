@@ -4,12 +4,40 @@ import 'package:satua/app/common/toast_helper.dart';
 import 'package:satua/app/model/story_model.dart';
 
 class StoryService {
-  Future<void> saveNewStory(String title, String body, List<String> reflectiveQuestions, List<String> category, bool isRead) async {
+  Future<void> saveNewStory(
+    String title,
+    String body,
+    List<String> reflectiveQuestions,
+    List<String> category,
+    bool isRead,
+    String name,
+    String age,
+    String language,
+    String gender,
+    String? neurodevelopmentalDisorder,
+    String storyAbout,
+    String storySetting,
+    String storyFeel,
+    String primaryValues,
+    String? additionalCharacter,
+    String? extraDetails,
+  ) async {
     Story newStory = Story(
       title: title,
       body: body,
       reflectiveQuestions: reflectiveQuestions,
       category: category,
+      name: name,
+      age: age,
+      language: language,
+      gender: gender,
+      neurodevelopmentalDisorder: neurodevelopmentalDisorder,
+      storyAbout: storyAbout,
+      storySetting: storySetting,
+      storyFeel: storyFeel,
+      primaryValues: primaryValues,
+      additionalCharacter: additionalCharacter ?? "",
+      extraDetails: extraDetails ?? "",
       isRead: isRead,
       readTime: (isRead == true) ? DateTime.now().toString() : null,
       createTime: DateTime.now().toString(),
@@ -25,23 +53,62 @@ class StoryService {
     }
   }
 
-  Future<void> editStory(String storyId, {String? title, String? body, List<String>? reflectiveQuestions, List<String>? category, bool? isRead}) async {
+  Future<void> updateStory(
+    String storyId,
+    String title,
+    String body,
+    List<String> reflectiveQuestions,
+    List<String> category,
+    bool isRead,
+    String name,
+    String age,
+    String language,
+    String gender,
+    String? neurodevelopmentalDisorder,
+    String storyAbout,
+    String storySetting,
+    String storyFeel,
+    String primaryValues,
+    String? additionalCharacter,
+    String? extraDetails,
+  ) async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
       DocumentReference storyRef = FirebaseFirestore.instance.collection('users').doc(uid).collection('stories').doc(storyId);
+      DocumentSnapshot docSnapshot = await storyRef.get();
+      Map<String, dynamic>? existingData = docSnapshot.data() as Map<String, dynamic>?;
 
-      Map<String, dynamic> updates = {};
-      if (title != null) updates['title'] = title;
-      if (body != null) updates['body'] = body;
-      if (reflectiveQuestions != null) updates['reflectiveQuestions'] = reflectiveQuestions;
-      if (category != null) updates['category'] = category;
-      if (isRead != null) {
-        updates['isRead'] = isRead;
-        if (isRead) updates['readTime'] = DateTime.now().toString();
+      Map<String, dynamic> updates = {
+        'title': title,
+        'body': body,
+        'reflectiveQuestions': reflectiveQuestions,
+        'category': category,
+        'isRead': isRead,
+        'readTime': isRead ? DateTime.now().toString() : existingData?['readTime'],
+        'updateTime': DateTime.now().toString(),
+      };
+
+      if (existingData?['name'] != name) updates['name'] = name;
+      if (existingData?['age'] != age) updates['age'] = age;
+      if (existingData?['language'] != language) updates['language'] = language;
+      if (existingData?['gender'] != gender) updates['gender'] = gender;
+      if (existingData?['neurodevelopmentalDisorder'] != neurodevelopmentalDisorder) {
+        updates['neurodevelopmentalDisorder'] = neurodevelopmentalDisorder;
       }
-      updates['updateTime'] = DateTime.now().toString();
+      if (existingData?['storyAbout'] != storyAbout) updates['storyAbout'] = storyAbout;
+      if (existingData?['storySetting'] != storySetting) updates['storySetting'] = storySetting;
+      if (existingData?['storyFeel'] != storyFeel) updates['storyFeel'] = storyFeel;
+      if (existingData?['primaryValues'] != primaryValues) updates['primaryValues'] = primaryValues;
+      if (existingData?['additionalCharacter'] != additionalCharacter) {
+        updates['additionalCharacter'] = additionalCharacter ?? "";
+      }
+      if (existingData?['extraDetails'] != extraDetails) {
+        updates['extraDetails'] = extraDetails ?? "";
+      }
+      if (existingData?['createTime'] == null) updates['createTime'] = DateTime.now().toString();
 
       await storyRef.update(updates);
+      showToast('Story updated successfully!');
     } catch (e) {
       showToast('Error updating story: ${e.toString()}');
     }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:satua/app/common/toast_helper.dart';
 import 'package:satua/app/model/profile_model.dart';
+import 'package:satua/app/model/story_model.dart';
 import 'package:satua/app/routes/app_pages.dart';
 import 'package:satua/app/services/profile_service.dart';
 
@@ -19,9 +20,27 @@ class DetailsController extends GetxController {
   final RxString selectedGender = ''.obs;
   final RxString selectedLang = ''.obs;
   final RxList<Profile> allProfile = <Profile>[].obs;
+  final RxBool isEditedStory = false.obs;
+  final RxString? editedStoryId = ''.obs;
 
   @override
   void onInit() {
+    final arguments = Get.arguments;
+    if (arguments is Story) {
+      editedStoryId?.value = arguments.id ?? "";
+      nameController.text = arguments.name;
+      ageController.text = arguments.age;
+      selectedLang.value = arguments.language;
+      selectedGender.value = arguments.gender;
+      neuroController.text = arguments.neurodevelopmentalDisorder ?? "";
+      aboutController.text = arguments.storyAbout;
+      placeController.text = arguments.storySetting;
+      feelController.text = arguments.storyFeel;
+      primaryValController.text = arguments.primaryValues;
+      additionalCharacterController.text = arguments.additionalCharacter ?? "";
+      extraDetailsController.text = arguments.extraDetails ?? "";
+      isEditedStory.value = true;
+    }
     super.onInit();
   }
 
@@ -69,7 +88,24 @@ class DetailsController extends GetxController {
       return;
     }
 
-    Get.toNamed(Routes.RESULT, parameters: {'userPrompt': generatePrompt()});
+    Map<String, String> parameters = {
+      'userPrompt': generatePrompt(),
+      'storyId': editedStoryId?.value.trim() ?? "",
+      'name': nameController.text.trim(),
+      'age': ageController.text.trim(),
+      'language': selectedLang.value.trim(),
+      'gender': selectedGender.value.trim(),
+      'about': aboutController.text.trim(),
+      'setting': placeController.text.trim(),
+      'feel': feelController.text.trim(),
+      'primaryValues': primaryValController.text.trim(),
+      'neuroCondition': neuroController.text.isNotEmpty ? neuroController.text.trim() : '',
+      'additionalCharacter': additionalCharacterController.text.isNotEmpty ? additionalCharacterController.text.trim() : '',
+      'extraDetails': extraDetailsController.text.isNotEmpty ? extraDetailsController.text.trim() : '',
+      'isEditedStory': isEditedStory.value.toString(),
+    };
+
+    Get.toNamed(Routes.RESULT, parameters: parameters);
   }
 
   String generatePrompt() {

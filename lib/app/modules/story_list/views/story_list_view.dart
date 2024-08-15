@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:satua/app/core/theme_manager/text_style_manager.dart';
-import 'package:satua/app/model/story_model.dart';
 import 'package:satua/app/modules/story_list/views/story_list_detail_view.dart';
 import 'package:satua/app/routes/app_pages.dart';
 import '../controllers/story_list_controller.dart';
@@ -62,14 +61,14 @@ class StoryListView extends GetView<StoryListController> {
                                   Get.to(() => const StoryListDetailView(), arguments: story);
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 8.0), // Add vertical margin for spacing
+                                  margin: const EdgeInsets.symmetric(vertical: 8.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.0),
                                     color: const Color.fromARGB(255, 255, 255, 255),
                                   ),
                                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         story.title,
