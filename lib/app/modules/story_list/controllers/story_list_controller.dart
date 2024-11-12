@@ -5,6 +5,8 @@ import 'package:satua/app/services/story_service.dart';
 class StoryListController extends GetxController {
   final StoryService storyService = StoryService();
   late final Future<List<Story>> stories;
+  RxString selectedSortOption = ''.obs;
+  final RxList<Story> allStory = <Story>[].obs;
 
   @override
   void onInit() {
@@ -22,7 +24,22 @@ class StoryListController extends GetxController {
     super.onClose();
   }
 
-  Future<List<Story>> fetchAllStories() {
-    return storyService.getAllStories();
+  Future<List<Story>> fetchAllStories() async {
+    List<Story> fetchedStoryList = await storyService.getAllStories();
+    allStory.addAll(fetchedStoryList);
+    return fetchedStoryList;
+  }
+
+  void sortStory() {
+    if (selectedSortOption.value == 'Sort by A from Z') {
+      allStory.sort((a, b) => a.title.compareTo(b.title));
+    } else if (selectedSortOption.value == 'Sort by Z from A') {
+      allStory.sort((a, b) => b.title.compareTo(a.title));
+    } else if (selectedSortOption.value == 'Newest') {
+      allStory.sort((a, b) => b.createTime.compareTo(a.createTime));
+    } else if (selectedSortOption.value == 'Oldest') {
+      allStory.sort((a, b) => a.createTime.compareTo(b.createTime));
+    }
+    allStory.refresh();
   }
 }

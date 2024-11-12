@@ -15,7 +15,7 @@ class DetailsView extends GetView<DetailsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Imagine your story',
+          'Buat Cerita',
           style: TextStyleManager.titleGreen(),
         ),
         centerTitle: true,
@@ -27,7 +27,7 @@ class DetailsView extends GetView<DetailsController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Child's Name:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                const Text("Nama anak:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                 const SizedBox(height: 8.0),
                 TypeAheadField<Profile>(
                   builder: (context, controller, focusNode) {
@@ -68,14 +68,14 @@ class DetailsView extends GetView<DetailsController> {
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'Age:',
+                  title: 'Usia:',
                   controller: controller.ageController,
                 ),
                 const SizedBox(height: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Story language:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                    const Text("Bahasa:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                     const SizedBox(height: 8.0),
                     DropdownButtonFormField<String>(
                       value: controller.selectedLang.value.isNotEmpty ? controller.selectedLang.value : null,
@@ -137,37 +137,37 @@ class DetailsView extends GetView<DetailsController> {
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'NDD (Filled by Parents):',
+                  title: 'NDD (Diisi orang tua):',
                   controller: controller.neuroController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'What should the story be about?',
+                  title: 'Cerita ini tentang:',
                   controller: controller.aboutController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'Where should the story take place?',
+                  title: 'Lokasinya ada di:',
                   controller: controller.placeController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'How should the story feel:',
+                  title: 'Feeling dari cerita ini adalah:',
                   controller: controller.feelController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'What primary value do you want to teach?',
+                  title: 'Pesan moral utama untuk anak adalah:',
                   controller: controller.primaryValController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'Additional characters:',
+                  title: 'Tambahkan karakter (opsional):',
                   controller: controller.additionalCharacterController,
                 ),
                 const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
-                  title: 'Extra details to spice your story up!',
+                  title: 'Detail tambahan untuk cerita (opsional)',
                   controller: controller.extraDetailsController,
                 ),
                 const SizedBox(height: 45),
@@ -183,7 +183,7 @@ class DetailsView extends GetView<DetailsController> {
                     minimumSize: const Size.fromHeight(50),
                   ),
                   child: const Text(
-                    'Generate Story!',
+                    'Buat Cerita!',
                     style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),

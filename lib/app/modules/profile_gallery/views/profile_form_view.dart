@@ -14,7 +14,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile gallery',
+          'Profil Anak',
           style: TextStyleManager.titleGreen(),
         ),
         centerTitle: true,
@@ -46,12 +46,12 @@ class ProfileFormView extends GetView<ProfileFormController> {
                               children: [
                                 const SizedBox(height: 15),
                                 Text(
-                                  "Delete Profile?",
+                                  "Hapus profile?",
                                   style: TextStyleManager.titleGreen(fontSize: 24),
                                 ),
                                 const SizedBox(height: 15),
                                 Text(
-                                  "Deleted profile can never be recovered again. Are you sure you want to delete this profile?",
+                                  "Profil anak yang telah dihapus, tidak bisa digunakan kembali. Apakah anda tetap ingin menghapus profil?",
                                   style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.center,
                                 ),
@@ -74,7 +74,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
                                   elevation: 0,
                                 ),
                                 child: const Text(
-                                  'Cancel',
+                                  'Batal',
                                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                                 ),
                               ),
@@ -92,7 +92,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
                                   elevation: 0,
                                 ),
                                 child: const Text(
-                                  'Delete Story',
+                                  'Hapus Profil',
                                   style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                                 ),
                               ),
@@ -122,11 +122,11 @@ class ProfileFormView extends GetView<ProfileFormController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SatuaTextFormFieldWidget(
-                  title: "Child's name:",
+                  title: "Nama anak:",
                   controller: controller.childsName,
                 ),
                 const SizedBox(height: 15),
-                const Text("Birthdate:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                const Text("Tanggal Lahir:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                 const SizedBox(height: 8.0),
                 GestureDetector(
                   onTap: () {
@@ -242,12 +242,12 @@ class ProfileFormView extends GetView<ProfileFormController> {
                             children: [
                               const SizedBox(height: 15),
                               Text(
-                                "Profile Created",
+                                "Profil Dibuat",
                                 style: TextStyleManager.titleGreen(fontSize: 24),
                               ),
                               const SizedBox(height: 15),
                               Text(
-                                "Congrats on creating a new profile for your child. This will help fasten the time you’d need to create your story next time!",
+                                "Selamat! Anda telah berhasil membuat profil baru untuk anak Anda. Ini akan mempermudah dan mempercepat proses pembuatan cerita Anda di waktu berikutnya!",
                                 style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.center,
                               ),
@@ -268,7 +268,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
                                 elevation: 0,
                               ),
                               child: const Text(
-                                'Profile Gallery',
+                                'Profil Anak',
                                 style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                               ),
                             ),
@@ -286,7 +286,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
                                 elevation: 0,
                               ),
                               child: const Text(
-                                'Back to Home',
+                                'Halaman Utama',
                                 style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                               ),
                             ),
@@ -305,7 +305,7 @@ class ProfileFormView extends GetView<ProfileFormController> {
                     minimumSize: Size(Get.width, 50),
                   ),
                   child: Text(
-                    controller.isEditMode == true ? "Save changes" : 'Create a new profile',
+                    controller.isEditMode == true ? "Simpan Perubahan" : 'Buat Profile Baru',
                     style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),

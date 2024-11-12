@@ -108,9 +108,9 @@ class StoryService {
       if (existingData?['createTime'] == null) updates['createTime'] = DateTime.now().toString();
 
       await storyRef.update(updates);
-      showToast('Story updated successfully!');
+      showToast('Cerita berhasil diperbarui!');
     } catch (e) {
-      showToast('Error updating story: ${e.toString()}');
+      showToast('Terjadi kesalahan saat memperbarui cerita: ${e.toString()}');
     }
   }
 
@@ -131,9 +131,9 @@ class StoryService {
       }
 
       await storyRef.update(updates);
-      showToast('Story read status updated successfully.');
+      showToast('Status baca cerita berhasil diperbarui.');
     } catch (e) {
-      showToast('Error updating story read status: ${e.toString()}');
+      showToast('Terjadi kesalahan saat memperbarui status baca cerita: ${e.toString()}');
     }
   }
 
@@ -148,7 +148,7 @@ class StoryService {
         return null;
       }
     } catch (e) {
-      showToast('Error fetching story: ${e.toString()}');
+      showToast("Terjadi kesalahan saat mengambil cerita: ${e.toString()}");
       return null;
     }
   }
@@ -165,7 +165,7 @@ class StoryService {
         return story;
       }).toList();
     } catch (e) {
-      showToast('Error fetching stories: ${e.toString()}');
+      showToast("Terjadi kesalahan saat mengambil cerita: ${e.toString()}");
       return [];
     }
   }
@@ -175,7 +175,7 @@ class StoryService {
       String uid = FirebaseAuth.instance.currentUser!.uid;
       await FirebaseFirestore.instance.collection('users').doc(uid).collection('stories').doc(storyId).delete();
     } catch (e) {
-      showToast('Error deleting story: ${e.toString()}');
+      showToast("Terjadi kesalahan saat menghapus cerita: ${e.toString()}");
     }
   }
 }

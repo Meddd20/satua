@@ -19,9 +19,9 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {
-        message = 'The provided password is too weak';
+        message = 'Kata sandi terlalu lemah';
       } else if (e.code == 'email-already-in-use') {
-        message = 'The provided email is already in use';
+        message = 'Email sudah terdaftar';
       }
 
       showToast(message);
@@ -31,6 +31,7 @@ class AuthService {
   Future<void> addUserDetails(String email, String username) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? uid = prefs.getString('userToken');
+    prefs.setString('username', username);
 
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
       'email': email,
@@ -39,39 +40,41 @@ class AuthService {
     });
   }
 
-  Future<Map<String, String>?> getUserEmailAndUsername() async {
+  Future<void> updateUsername(String username) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? uid = prefs.getString('userToken');
 
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-      if (snapshot.exists) {
-        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-
-        String email = data['email'] ?? 'Email not found';
-        String username = data['username'] ?? 'Username not found';
-
-        return {
-          'email': email,
-          'username': username,
-        };
-      } else {
-        return null;
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        showToast('Pengguna tidak terautentikasi');
+        return;
       }
+
+      uid = user.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'username': username,
+      });
+
+      await prefs.setString('username', username);
     } catch (e) {
-      showToast('Error fetching user data: ${e.toString()}');
-      return null;
+      showToast('Kesalahan memperbarui username: ${e.toString()}');
     }
   }
 
   Future<void> loginAccount(String email, String password) async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      String? uid = userCredential.user?.uid;
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final userData = snapshot.data() as Map<String, dynamic>;
+      await prefs.setString('username', userData['username']);
+      await prefs.setBool('isShowUsername', true);
 
       String? idToken = await userCredential.user!.getIdToken();
       if (idToken != null) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userToken', idToken);
       }
 
@@ -86,6 +89,7 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('userToken');
+    await prefs.remove('username');
     await Future.delayed(const Duration(seconds: 1));
     Get.offAllNamed(Routes.LOGIN);
   }

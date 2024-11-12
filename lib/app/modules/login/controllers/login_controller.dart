@@ -28,19 +28,20 @@ class LoginController extends GetxController {
 
   void login() {
     if (emailController.text.isEmpty) {
-      showToast('Email cannot be empty');
+      showToast('Email tidak boleh kosong');
       return;
     }
 
     if (!emailController.text.isEmail) {
-      showToast('Invalid email format');
+      showToast('Format email tidak valid');
       return;
     }
 
     if (passwordController.text.isEmpty) {
-      showToast('Password cannot be empty');
+      showToast('Kata sandi tidak boleh kosong');
       return;
     }
+
     authService.loginAccount(emailController.text.trim(), passwordController.text.trim());
   }
 }

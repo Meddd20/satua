@@ -13,7 +13,7 @@ class TrackerView extends GetView<TrackerController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Relive your stories',
+          'Progress Tracker',
           style: TextStyleManager.titleGreen(),
         ),
         leading: Row(
@@ -37,7 +37,7 @@ class TrackerView extends GetView<TrackerController> {
                     children: [
                       const SizedBox(height: 83),
                       const Text(
-                        'Stories Read',
+                        'Cerita yang telah dibaca',
                         style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
@@ -59,8 +59,9 @@ class TrackerView extends GetView<TrackerController> {
                                   ),
                                   const SizedBox(height: 10),
                                   const Text(
-                                    'Stories read today',
+                                    'Cerita telah dibaca \nhari ini.',
                                     style: TextStyle(color: Colors.black, fontSize: 12),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -78,8 +79,9 @@ class TrackerView extends GetView<TrackerController> {
                                   ),
                                   const SizedBox(height: 10),
                                   const Text(
-                                    "Stories read this week.",
+                                    "Cerita telah dibaca \nminggu ini",
                                     style: TextStyle(color: Colors.black, fontSize: 12),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -89,7 +91,7 @@ class TrackerView extends GetView<TrackerController> {
                       ),
                       const SizedBox(height: 39),
                       const Text(
-                        "Monthly Progress",
+                        "Progress bulanan",
                         style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),

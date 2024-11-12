@@ -46,7 +46,7 @@ class ProfileService {
         await FirebaseFirestore.instance.collection('users').doc(uid).collection('profiles').doc(profileId).update(updatedProfile.toJson());
         await Future.delayed(const Duration(seconds: 1));
       } else {
-        showToast("Profile not found.");
+        showToast("Profil tidak ditemukan.");
       }
     } on FirebaseAuthException catch (e) {
       showToast(e.message!);
@@ -64,7 +64,7 @@ class ProfileService {
         return null;
       }
     } catch (e) {
-      showToast('Error fetching profile: ${e.toString()}');
+      showToast('Terjadi kesalahan saat mengambil profil: ${e.toString()}');
       return null;
     }
   }
@@ -81,7 +81,7 @@ class ProfileService {
         return profiles;
       }).toList();
     } catch (e) {
-      showToast('Error fetching profiles: ${e.toString()}');
+      showToast('Terjadi kesalahan saat mengambil profil: ${e.toString()}');
       return [];
     }
   }
@@ -91,7 +91,7 @@ class ProfileService {
       String uid = FirebaseAuth.instance.currentUser!.uid;
       await FirebaseFirestore.instance.collection('users').doc(uid).collection('profiles').doc(profileId).delete();
     } catch (e) {
-      showToast('Error deleting profile: ${e.toString()}');
+      showToast('Terjadi kesalahan saat menghapus profil: ${e.toString()}');
     }
   }
 }

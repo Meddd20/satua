@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:satua/app/core/theme_manager/assets_manager.dart';
 import 'package:satua/app/core/theme_manager/text_style_manager.dart';
+import 'package:satua/app/modules/home/views/edit_profile_view.dart';
+import 'package:satua/app/modules/home/views/user_guide_view.dart';
 import 'package:satua/app/routes/app_pages.dart';
-import 'package:satua/app/services/auth_service.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -13,78 +14,13 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    backgroundColor: const Color(0xFFFFFFFF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                    title: Column(
-                      children: [
-                        const SizedBox(height: 15),
-                        Text(
-                          "Logout Confirmation",
-                          style: TextStyleManager.titleGreen(fontSize: 24),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          "Are you sure you want to logged out?",
-                          style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    actionsPadding: const EdgeInsets.fromLTRB(35, 20, 35, 35),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () => Get.back(),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFFDE00),
-                          textStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                          minimumSize: const Size.fromHeight(50),
-                          elevation: 0,
-                        ),
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () => AuthService().logout(),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFF6F6F6),
-                          textStyle: const TextStyle(color: Color(0xFFBDBDBD)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                          minimumSize: const Size.fromHeight(50),
-                          elevation: 0,
-                        ),
-                        child: const Text(
-                          'Logout',
-                          style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
+            onPressed: () => Get.to(() => const EditProfileView()),
           ),
         ],
       ),
@@ -103,155 +39,163 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            'Hi Parents!',
-                            style: TextStyleManager.titleGreen(),
-                          ),
+                          Obx(() {
+                            return Text(
+                              'Hi ${controller.username.value}!',
+                              style: TextStyleManager.titleGreen(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          }),
                           const SizedBox(
                             height: 14,
                           ),
                           const Text(
-                            'Let’s create wonderful bedtime stories together with Satua.',
+                            'Mari ciptakan cerita sebelum tidur berasama dengan Satua.',
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
                           ),
                           const SizedBox(
                             height: 48,
                           ),
                           const Text(
-                            'Explore',
+                            'Jelajahi',
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 22,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.DETAILS);
-                            },
-                            child: SizedBox(
-                              height: 177,
-                              child: Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                color: const Color(0xFF8FDEBC),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(25.0, 20.0, 20.0, 20.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Create new Story',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                              ),
-                                              SizedBox(
-                                                height: 14,
-                                              ),
-                                              Text(
-                                                'Powered by OpenAI’s creative mind, Satua helps you make the perfect bedtime story for your loved ones.',
-                                                maxLines: 4,
-                                              )
-                                            ],
+                            onTap: () => Get.toNamed(Routes.DETAILS),
+                            child: Wrap(
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  color: const Color(0xFF8FDEBC),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(25.0, 30.0, 20.0, 30.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Buat cerita baru',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height: 14,
+                                                ),
+                                                Text(
+                                                  'Dengan bantuan otak kreatif dari OpenAI, Satua dapat membantu kamu membuat cerita sebelum tidur yang pas untuk anak.',
+                                                  maxLines: 4,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Image.asset(
-                                        '${AssetManager.imagePath}/cacing-kuning.png',
-                                      ),
-                                    ],
+                                        Image.asset(
+                                          '${AssetManager.imagePath}/cacing-kuning.png',
+                                          height: 180,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 14),
                           GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.STORY_LIST);
-                            },
-                            child: SizedBox(
-                              height: 177,
-                              child: Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                color: const Color(0xFFFFF08A),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(25.0, 20.0, 20.0, 20.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Read existing stories',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                              ),
-                                              SizedBox(
-                                                height: 14,
-                                              ),
-                                              Text(
-                                                'Skip the hassle of making a new one, and jump right in to read past stories made by other parents!',
-                                                maxLines: 4,
-                                              )
-                                            ],
+                            onTap: () => Get.toNamed(Routes.STORY_LIST),
+                            child: Wrap(
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  color: const Color(0xFFFFF08A),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(25.0, 30.0, 20.0, 30.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Koleksi cerita',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height: 14,
+                                                ),
+                                                Text(
+                                                  'Ingin melihat cerita yang pernah dibuat sebelumnya? Jelajahi hasil kreasi dan berpetualanglah kembali.',
+                                                  maxLines: 4,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Image.asset('${AssetManager.imagePath}/cacing-hijau.png'),
-                                    ],
+                                        Image.asset(
+                                          '${AssetManager.imagePath}/cacing-hijau.png',
+                                          height: 180,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 14),
                           GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.PROFILE_GALLERY);
-                            },
-                            child: SizedBox(
-                              height: 177,
-                              child: Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                color: const Color(0xFFFFB18A),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(25.0, 20.0, 20.0, 20.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Create child’s profile',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                              ),
-                                              SizedBox(
-                                                height: 14,
-                                              ),
-                                              Text(
-                                                'Set your child’s profile and skip the hassle of filling up your child’s info the next time you want to create a story.',
-                                                maxLines: 4,
-                                              )
-                                            ],
+                            onTap: () => Get.toNamed(Routes.PROFILE_GALLERY),
+                            child: Wrap(
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  color: const Color(0xFFFFB18A),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(25.0, 30.0, 20.0, 30.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Profil anak',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height: 14,
+                                                ),
+                                                Text(
+                                                  'Lewati pengisian informasi anak saat membuat cerita ke depannya dengan membuat profil karakter anak.',
+                                                  maxLines: 4,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Image.asset('${AssetManager.imagePath}/cacing-biru.png'),
-                                    ],
+                                        Image.asset(
+                                          '${AssetManager.imagePath}/cacing-biru.png',
+                                          height: 180,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 40),
@@ -261,86 +205,83 @@ class HomeView extends GetView<HomeController> {
                           ),
                           const SizedBox(height: 22),
                           GestureDetector(
-                            onTap: () {},
-                            child: SizedBox(
-                              height: 177,
-                              child: Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                color: const Color(0xFFFFABD8),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(25.0, 20.0, 25.0, 20.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Your kids are a reflection of yourself!',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                              ),
-                                              SizedBox(
-                                                height: 14,
-                                              ),
-                                              Text(
-                                                "Always up for a challenge, Sukerti volunteered to save the day. Armed with a courage as big as his heart, he set off to find the dragon's lair. Along the way, ",
-                                                style: TextStyle(fontSize: 14),
-                                                maxLines: 4,
-                                              )
-                                            ],
+                            onTap: () => Get.toNamed(Routes.TRACKER),
+                            child: Wrap(
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  color: const Color(0xFFBED7FC),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(25.0, 30.0, 20.0, 30.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Progress Tracker',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height: 14,
+                                                ),
+                                                Text(
+                                                  'Lihat frekuensi anak berpartisipasi dalam bedtime story. Lihat hasil harian, mingguan, dan bulanan.',
+                                                  maxLines: 4,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        Image.asset(
+                                          '${AssetManager.imagePath}/kacang-merah.png',
+                                          height: 180,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 14),
                           GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.TRACKER);
-                            },
-                            child: SizedBox(
-                              height: 177,
-                              child: Card(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                color: const Color(0xFFBED7FC),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(25.0, 20.0, 20.0, 20.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Progress Tracker',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                              ),
-                                              SizedBox(
-                                                height: 14,
-                                              ),
-                                              Text(
-                                                'See how often you read. Let’s develop a good habit of reading stories everyday before bed!',
-                                                maxLines: 4,
-                                              )
-                                            ],
-                                          ),
+                            onTap: () => Get.to(() => const UserGuideView()),
+                            child: Card(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              color: const Color(0xFFFFABD8),
+                              child: const Padding(
+                                padding: EdgeInsets.all(0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.fromLTRB(25.0, 30.0, 25.0, 30.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Panduan Penggunaan',
+                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                            ),
+                                            SizedBox(
+                                              height: 14,
+                                            ),
+                                            Text(
+                                              "Pelajari lebih lanjut cara menggunakan aplikasi agar kegiatan bedtime story menjadi seru dan optimal.",
+                                              style: TextStyle(fontSize: 14),
+                                              maxLines: 4,
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      Image.asset(
-                                        '${AssetManager.imagePath}/kacang-merah.png',
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -352,8 +293,55 @@ class HomeView extends GetView<HomeController> {
                           ),
                           const SizedBox(height: 22),
                           const Text(
-                            "Welcome to Satua, where dreams take flight and bedtime stories come alive! 🌙✨\n\nAt Satua, we believe in the magic of bedtime stories and the power of imagination. We're not just an app; we're your storytelling companion, here to whisk you away to enchanting worlds crafted with love and powered by cutting-edge AI.\n\nOur mission is simple: to transform bedtime into a magical adventure for children and parents alike. Satua, derived from the Indonesian word for 'story',  is more than just an app; it's a gateway to a universe where imagination knows no bounds.",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
+                            'Selamat datang di Satua, tempat mimpi terbang dan cerita pengantar tidur menjadi hidup! 🌙✨\nDi Satua, kami percaya pada keajaiban cerita pengantar tidur dan kekuatan imajinasi. \n\nKami bukan hanya sebuah aplikasi; kami adalah teman bercerita Anda, di sini untuk membawa Anda ke dunia mempesona yang dibuat dengan cinta dan didukung oleh AI mutakhir. \n\nMisi kami sederhana: mengubah waktu tidur menjadi petualangan ajaib bagi anak-anak dan orang tua. Satua, yang berasal dari bahasa Indonesia untuk "cerita," lebih dari sekadar aplikasi; ini adalah pintu gerbang ke alam semesta di mana imajinasi tidak mengenal batas.',
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
+                          ),
+                          const SizedBox(height: 50),
+                          GestureDetector(
+                            onTap: () => controller.openWhatsAppChatWithNiKetutJeniAdhi(),
+                            child: Wrap(
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  color: const Color(0xFFDAF0C6),
+                                  child: const Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(25.0, 30.0, 25.0, 30.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Ingin bantuan profesional?',
+                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                              ),
+                                              SizedBox(
+                                                height: 14,
+                                              ),
+                                              Text(
+                                                "Ingin mengenali anak anda lebih jauh dengan bantuan profesional?",
+                                                style: TextStyle(fontSize: 14),
+                                                maxLines: 4,
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                "Lakukan pemesanan konsultasi dengan Psikolog Ni Ketut Jeni Adhi",
+                                                style: TextStyle(fontSize: 14),
+                                                maxLines: 4,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 77),
                         ],

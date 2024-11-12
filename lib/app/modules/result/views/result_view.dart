@@ -28,12 +28,12 @@ class ResultView extends GetView<ResultController> {
               children: [
                 const SizedBox(height: 15),
                 Text(
-                  "Story has been saved",
+                  "Cerita disimpan!",
                   style: TextStyleManager.titleGreen(fontSize: 24),
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  "Your wonderful story has been saved and added to your story gallery. Click the button below to relive your past adventures!",
+                  "Cerita malam hari anda telah berhasil disimpan ke koleksi cerita. Tekan tombol di bawah untuk melihat petualangan lampau anda sebelumnya.",
                   style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center,
                 ),
@@ -54,7 +54,7 @@ class ResultView extends GetView<ResultController> {
                   elevation: 0,
                 ),
                 child: const Text(
-                  'Story Gallery',
+                  'Koleksi Cerita',
                   style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                 ),
               ),
@@ -72,7 +72,7 @@ class ResultView extends GetView<ResultController> {
                   elevation: 0,
                 ),
                 child: const Text(
-                  'Back to Home',
+                  'Halaman Utama',
                   style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                 ),
               ),
@@ -97,7 +97,7 @@ class ResultView extends GetView<ResultController> {
             ],
           ),
           title: Text(
-            'Imagine your story',
+            'Buat Cerita',
             style: TextStyleManager.titleGreen(),
           ),
         ),
@@ -123,24 +123,29 @@ class ResultView extends GetView<ResultController> {
                     Container(
                       width: Get.width,
                       child: Text(
-                        "Reflective Questions:",
+                        "Pertanyaan Reflektif:",
                         style: TextStyleManager.medium12(fontSize: 14, fontWeight: FontWeight.w600),
                         textAlign: TextAlign.left,
                       ),
                     ),
                     const SizedBox(height: 5),
                     Text(controller.questions.value),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Checkbox(
-                          value: controller.isRead.value,
-                          onChanged: (isRead) {
-                            controller.isRead.value = isRead!;
-                          },
-                          activeColor: Colors.black,
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Checkbox(
+                            value: controller.isRead.value,
+                            onChanged: (isRead) {
+                              controller.isRead.value = isRead!;
+                            },
+                            activeColor: Colors.black,
+                          ),
                         ),
+                        const SizedBox(width: 10),
                         Text(
                           "Sudah selesai membaca",
                           style: TextStyleManager.regular12(fontSize: 14),
@@ -155,7 +160,7 @@ class ResultView extends GetView<ResultController> {
                             await controller.updateStory();
                             _showStorySavedDialog(context);
                           } catch (e) {
-                            showToast("An error occurred while saving the story. Please try again.");
+                            showToast("Terjadi kesalahan saat menyimpan cerita. Silakan coba lagi.");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -169,7 +174,7 @@ class ResultView extends GetView<ResultController> {
                           elevation: 0,
                         ),
                         child: const Text(
-                          'Edit Story',
+                          'Edit Cerita!',
                           style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -180,7 +185,7 @@ class ResultView extends GetView<ResultController> {
                             await controller.saveStory();
                             _showStorySavedDialog(context);
                           } catch (e) {
-                            showToast("An error occurred while saving the story. Please try again.");
+                            showToast("Terjadi kesalahan saat menyimpan cerita. Silakan coba lagi.");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -194,7 +199,7 @@ class ResultView extends GetView<ResultController> {
                           elevation: 0,
                         ),
                         child: const Text(
-                          'Create As A New Story',
+                          'Buat Sebagai Cerita Baru!',
                           style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -205,7 +210,7 @@ class ResultView extends GetView<ResultController> {
                             await controller.saveStory();
                             _showStorySavedDialog(context);
                           } catch (e) {
-                            showToast("An error occurred while saving the story. Please try again.");
+                            showToast("Terjadi kesalahan saat menyimpan cerita. Silakan coba lagi.");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -219,7 +224,7 @@ class ResultView extends GetView<ResultController> {
                           elevation: 0,
                         ),
                         child: const Text(
-                          'Save Story!',
+                          'Buat Cerita!',
                           style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -237,7 +242,7 @@ class ResultView extends GetView<ResultController> {
                           elevation: 0,
                         ),
                         child: const Text(
-                          'Back to Home',
+                          'Halaman Utama',
                           style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -269,14 +274,14 @@ class ResultView extends GetView<ResultController> {
                             SizedBox(width: 150, height: 150, child: Image.asset('${AssetManager.imagePath}/awan-hijau.png')),
                             const SizedBox(height: 30),
                             Text(
-                              'Hang on a second!',
+                              'Tunggu sebentar',
                               style: TextStyleManager.titleGreen(),
                             ),
                             const SizedBox(height: 30),
                             SizedBox(
                               width: 250,
                               child: Text(
-                                'Satua is now generating your bed\ntime story...',
+                                'Satua sedang membuat cerita \nsebelum tidur anda...',
                                 textAlign: TextAlign.center,
                                 style: TextStyleManager.medium12(fontSize: 14),
                               ),

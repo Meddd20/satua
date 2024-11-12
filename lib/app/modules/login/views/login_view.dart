@@ -13,7 +13,7 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Masuk'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -63,7 +63,7 @@ class LoginView extends GetView<LoginController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Password', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const Text('Kata Sandi', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                           const SizedBox(height: 8.0),
                           Obx(
                             () => TextFormField(
@@ -105,7 +105,7 @@ class LoginView extends GetView<LoginController> {
                           minimumSize: const Size.fromHeight(50),
                         ),
                         child: const Text(
-                          'Login',
+                          'Masuk',
                           style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -116,11 +116,11 @@ class LoginView extends GetView<LoginController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'No account?',
+                              'Belum ada akun?',
                               style: TextStyleManager.mediumGray(),
                             ),
                             Text(
-                              ' Register now!',
+                              ' Daftar sekarang!',
                               style: TextStyleManager.mediumGray(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -149,74 +149,3 @@ class LoginView extends GetView<LoginController> {
     );
   }
 }
-
-// TextFormField(
-//                         decoration: InputDecoration(
-//                           labelText: 'Email', // Replace with your actual label
-//                           labelStyle: const TextStyle(
-//                               fontSize: 12.0,
-//                               color: Color(
-//                                   0xFF666666)), // Font size and color for label
-//                           enabledBorder: OutlineInputBorder(
-//                             borderRadius:
-//                                 BorderRadius.circular(8.0), // Border radius
-//                             borderSide: const BorderSide(
-//                                 color: Color(0xFFE8E8E8),
-//                                 width: 1.0), // Border style
-//                           ),
-//                           focusedBorder: OutlineInputBorder(
-//                             borderRadius:
-//                                 BorderRadius.circular(8.0), // Border radius
-//                             borderSide: const BorderSide(
-//                                 color: Color(0xFFE8E8E8),
-//                                 width:
-//                                     1.0), // Border style (use the same for focus)
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(
-//                         height: 15,
-//                       ),
-//                       TextFormField(
-//                         decoration: InputDecoration(
-//                           labelText:
-//                               'Password', // Replace with your actual label
-//                           labelStyle: const TextStyle(
-//                               fontSize: 12.0,
-//                               color: Color(
-//                                   0xFF666666)), // Font size and color for label
-//                           enabledBorder: OutlineInputBorder(
-//                             borderRadius:
-//                                 BorderRadius.circular(8.0), // Border radius
-//                             borderSide: const BorderSide(
-//                                 color: Color(0xFFE8E8E8),
-//                                 width: 1.0), // Border style
-//                           ),
-//                           focusedBorder: OutlineInputBorder(
-//                             borderRadius:
-//                                 BorderRadius.circular(8.0), // Border radius
-//                             borderSide: const BorderSide(
-//                                 color: Color(0xFFE8E8E8),
-//                                 width:
-//                                     1.0), // Border style (use the same for focus)
-//                           ),
-//                         ),
-//                       ),
-  // TextFormField(
-                      //   decoration: const InputDecoration(
-                      //     border: UnderlineInputBorder(),
-                      //     labelText: 'Email',
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 18,
-                      // ),
-                      // TextFormField(
-                      //   decoration: const InputDecoration(
-                      //     border: UnderlineInputBorder(),
-                      //     labelText: 'Password',
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 60,
-                      // ),

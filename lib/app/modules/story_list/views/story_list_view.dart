@@ -20,7 +20,7 @@ class StoryListView extends GetView<StoryListController> {
           ],
         ),
         title: Text(
-          'Relive your stories',
+          'Koleksi Cerita',
           style: TextStyleManager.titleGreen(),
         ),
         centerTitle: true,
@@ -30,10 +30,6 @@ class StoryListView extends GetView<StoryListController> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData) {
-            return const Center(child: Text('No story found'));
           } else {
             return SingleChildScrollView(
               child: Stack(
@@ -42,60 +38,98 @@ class StoryListView extends GetView<StoryListController> {
                     padding: const EdgeInsets.fromLTRB(30, 50, 30, 20),
                     child: Column(
                       children: [
-                        Container(
-                          width: Get.width,
-                          child: Text(
-                            "Story Gallery",
-                            style: TextStyleManager.title(),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        Column(
-                          children: List.generate(
-                            snapshot.data!.length,
-                            (index) {
-                              final story = snapshot.data![index];
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const StoryListDetailView(), arguments: story);
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Semua Cerita",
+                              style: TextStyleManager.title(),
+                              textAlign: TextAlign.left,
+                            ),
+                            Container(
+                              width: 140,
+                              height: 50,
+                              child: DropdownButtonFormField<String>(
+                                value: controller.selectedSortOption.value.isNotEmpty ? controller.selectedSortOption.value : null,
+                                onChanged: (String? newValue) {
+                                  controller.selectedSortOption.value = newValue!;
+                                  controller.sortStory();
                                 },
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                                  decoration: BoxDecoration(
+                                hint: const Text('Urutkan'),
+                                style: TextStyleManager.mediumGray12(),
+                                icon: const Icon(Icons.arrow_drop_down, size: 24.0),
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
-                                    color: const Color.fromARGB(255, 255, 255, 255),
+                                    borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                                   ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        story.title,
-                                        style: TextStyleManager.mediumGray(fontSize: 14, fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      Text(
-                                        story.body,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyleManager.regular12(),
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      Wrap(
-                                        spacing: 8.0,
-                                        children: story.category.map((category) => _buildBadge(category)).toList(),
-                                      ),
-                                      const SizedBox(height: 15.0),
-                                      Text(
-                                        DateFormat('d MMMM yyyy').format(DateTime.parse(story.createTime)),
-                                        style: TextStyleManager.mediumGray12(),
-                                      ),
-                                    ],
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                                   ),
                                 ),
-                              );
-                            },
+                                items: ['Sort by A from Z', 'Sort by Z from A', 'Newest', 'Oldest'].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Container(
+                                      width: 150,
+                                      child: Text(value),
+                                    ),
+                                  );
+                                }).toList(),
+                                isExpanded: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Obx(
+                          () => Column(
+                            children: List.generate(
+                              snapshot.data!.length,
+                              (index) {
+                                final story = controller.allStory[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => const StoryListDetailView(), arguments: story);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      color: const Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          story.title,
+                                          style: TextStyleManager.mediumGray(fontSize: 14, fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        Text(
+                                          story.body,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyleManager.regular12(),
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        Wrap(
+                                          spacing: 8.0,
+                                          children: story.category.map((category) => _buildBadge(category)).toList(),
+                                        ),
+                                        const SizedBox(height: 15.0),
+                                        Text(
+                                          DateFormat('d MMMM yyyy').format(DateTime.parse(story.createTime)),
+                                          style: TextStyleManager.mediumGray12(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                         const SizedBox(height: 40),

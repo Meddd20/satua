@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         initialRoute: initialUid != '' ? Routes.HOME : AppPages.INITIAL,
         getPages: AppPages.routes,
         debugShowCheckedModeBanner: false,
+        color: const Color(0xFFFCFCFF),
       ),
     );
   }

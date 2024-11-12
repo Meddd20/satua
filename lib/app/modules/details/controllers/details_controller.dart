@@ -56,35 +56,35 @@ class DetailsController extends GetxController {
 
   void goToResult() {
     if (nameController.text.isEmpty) {
-      showToast('Name cannot be empty');
+      showToast('Nama tidak boleh kosong, harap diisi.');
       return;
     }
     if (ageController.text.isEmpty) {
-      showToast('Age cannot be empty');
+      showToast('Usia harus diisi.');
       return;
     }
     if (selectedLang.value.isEmpty) {
-      showToast('Language cannot be empty');
+      showToast('Bahasa belum dipilih.');
       return;
     }
     if (selectedGender.value.isEmpty) {
-      showToast('Gender cannot be empty');
+      showToast('Jenis kelamin harus dipilih.');
       return;
     }
     if (aboutController.text.isEmpty) {
-      showToast('Fill out what your story will be about');
+      showToast('Jelaskan topik cerita Anda.');
       return;
     }
     if (placeController.text.isEmpty) {
-      showToast('Specify the setting for the story');
+      showToast('Harap tentukan latar cerita.');
       return;
     }
     if (feelController.text.isEmpty) {
-      showToast('Describe how the story should feel');
+      showToast('Sampaikan bagaimana perasaan yang ingin ditimbulkan cerita ini.');
       return;
     }
     if (primaryValController.text.isEmpty) {
-      showToast('Fill out the primary values the story will convey');
+      showToast('Tuliskan nilai utama yang ingin disampaikan dalam cerita.');
       return;
     }
 

@@ -14,7 +14,7 @@ class ProfileGalleryView extends GetView<ProfileGalleryController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile gallery',
+          'Profil Anak',
           style: TextStyleManager.titleGreen(),
         ),
         centerTitle: true,
@@ -37,21 +37,13 @@ class ProfileGalleryView extends GetView<ProfileGalleryController> {
             children: [
               Column(
                 children: [
-                  Container(
-                    width: Get.width,
-                    child: Text(
-                      'Child’s Profile',
-                      style: TextStyleManager.title(),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Child’s Profile',
-                        style: TextStyleManager.title(fontSize: 12),
+                        'Profil Anak',
+                        style: TextStyleManager.title(),
+                        textAlign: TextAlign.start,
                       ),
                       Container(
                         width: 140,
@@ -62,7 +54,7 @@ class ProfileGalleryView extends GetView<ProfileGalleryController> {
                             controller.selectedSortOption.value = newValue!;
                             controller.sortProfiles();
                           },
-                          hint: const Text('Sort by'),
+                          hint: const Text('Urutkan'),
                           style: TextStyleManager.mediumGray12(),
                           icon: const Icon(Icons.arrow_drop_down, size: 24.0),
                           decoration: InputDecoration(
@@ -75,7 +67,7 @@ class ProfileGalleryView extends GetView<ProfileGalleryController> {
                               borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
                             ),
                           ),
-                          items: ['Sort by A from Z', 'Sort by Z from A'].map<DropdownMenuItem<String>>((String value) {
+                          items: ['Sort by A from Z', 'Sort by Z from A', 'Newest', 'Oldest'].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Container(
@@ -142,7 +134,7 @@ class ProfileGalleryView extends GetView<ProfileGalleryController> {
                       minimumSize: Size(Get.width, 50),
                     ),
                     child: const Text(
-                      'Create a new profile',
+                      'Buat Profil Baru',
                       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                     ),
                   ),

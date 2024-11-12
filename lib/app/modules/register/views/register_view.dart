@@ -13,7 +13,7 @@ class RegisterView extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: const Text('Daftar'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -62,7 +62,7 @@ class RegisterView extends GetView<RegisterController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Password', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const Text('Kata Sandi', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                           const SizedBox(height: 8.0),
                           Obx(
                             () => TextFormField(
@@ -95,7 +95,7 @@ class RegisterView extends GetView<RegisterController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Display Name', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                          const Text('Nama', style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                           const SizedBox(height: 8.0),
                           TextFormField(
                             controller: controller.usernameController,
@@ -127,7 +127,7 @@ class RegisterView extends GetView<RegisterController> {
                           minimumSize: const Size.fromHeight(50),
                         ),
                         child: const Text(
-                          'Register',
+                          'Daftar',
                           style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                       ),
@@ -137,9 +137,9 @@ class RegisterView extends GetView<RegisterController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Already have an account?', style: TextStyleManager.mediumGray()),
+                            Text('Sudah ada akun?', style: TextStyleManager.mediumGray()),
                             Text(
-                              ' Login now!',
+                              ' Masuk sekarang!',
                               style: TextStyleManager.mediumGray(
                                 fontWeight: FontWeight.bold,
                               ),

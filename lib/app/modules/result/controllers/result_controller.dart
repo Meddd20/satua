@@ -143,7 +143,7 @@ class ResultController extends GetxController {
 
   Future<void> updateStory() async {
     if (detailsQuery.value == null) {
-      showToast('Story details are not available.');
+      showToast('Detail cerita tidak tersedia.');
       return;
     }
 
@@ -170,7 +170,7 @@ class ResultController extends GetxController {
 
   void showCustomToastWithRetry(String userPrompt) {
     Fluttertoast.showToast(
-      msg: "The story format is invalid. Retrying...",
+      msg: "Format cerita tidak valid. Mencoba kembali...",
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.black,

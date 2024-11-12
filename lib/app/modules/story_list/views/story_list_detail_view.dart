@@ -25,7 +25,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
           ],
         ),
         title: Text(
-          'Imagine your stories',
+          'Koleksi Cerita',
           style: TextStyleManager.titleGreen(),
         ),
         actions: [
@@ -46,12 +46,12 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                         children: [
                           const SizedBox(height: 15),
                           Text(
-                            "Delete Story?",
+                            "Hapus Cerita?",
                             style: TextStyleManager.titleGreen(fontSize: 24),
                           ),
                           const SizedBox(height: 15),
                           Text(
-                            "Delete story can never be read nor recover again. Are you sure you want to delete this story?",
+                            "Cerita yang sudah dihapus tidak bisa dibaca kembali. Apakah anda yakin ingin menghapus cerita?",
                             style: TextStyleManager.regular12(fontSize: 14, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
@@ -74,7 +74,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                             elevation: 0,
                           ),
                           child: const Text(
-                            'Cancel',
+                            'Batal',
                             style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w600, fontSize: 16),
                           ),
                         ),
@@ -92,7 +92,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                             elevation: 0,
                           ),
                           child: const Text(
-                            'Delete Story',
+                            'Hapus Cerita',
                             style: TextStyle(color: Color(0xFFBDBDBD), fontWeight: FontWeight.w600, fontSize: 16),
                           ),
                         ),
@@ -112,11 +112,11 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                 ),
                 const PopupMenuItem(
                   value: 'Delete',
-                  child: Text('Delete'),
+                  child: Text('Hapus'),
                 ),
                 const PopupMenuItem(
                   value: 'Share',
-                  child: Text('Share as text'),
+                  child: Text('Bagi teks'),
                 ),
               ];
             },
@@ -150,7 +150,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
               Container(
                 width: Get.width,
                 child: Text(
-                  "Reflective Questions:",
+                  "Pertanyaan Reflektif:",
                   style: TextStyleManager.medium12(fontSize: 14, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.left,
                 ),
@@ -215,12 +215,12 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
 
       ${controller.story.body}
 
-      Reflective Questions:
+      Pertanyaan Reflektif:
       ${controller.story.reflectiveQuestions.join('\n')}
     ''';
 
     Clipboard.setData(ClipboardData(text: storyContent)).then((_) {
-      showToast('Story copied to clipboard!');
+      showToast('Cerita berhasil disalin!');
     });
   }
 }

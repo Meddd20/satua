@@ -62,22 +62,22 @@ class ProfileFormController extends GetxController {
 
   Future<void> createNewProfile() async {
     if (childsName.text.isEmpty) {
-      showToast("Child's name cannot be empty");
+      showToast('Nama anak tidak boleh kosong');
       return;
     }
 
     if (getBirthDate == null) {
-      showToast("Child's birth date cannot be empty");
+      showToast('Tanggal lahir anak tidak boleh kosong');
       return;
     }
 
     if (age.value == null) {
-      showToast("Child's age cannot be empty");
+      showToast('Usia anak tidak boleh kosong');
       return;
     }
 
     if (selectedGender.value.isEmpty) {
-      showToast("Child's gender cannot be empty");
+      showToast('Jenis kelamin anak tidak boleh kosong');
       return;
     }
 
