@@ -11,8 +11,12 @@ import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Gemini.init(apiKey: 'AIzaSyCl5A197OLh-KHStv4kWlVrv3Evp88gBj0', enableDebugging: true);
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+  Gemini.init(apiKey: 'AIzaSyCdX2tsC7QJiF2RTpxUYwou52Viv7pERPk', enableDebugging: true);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? uid = prefs.getString('userToken') ?? '';
   runApp(MyApp(initialUid: uid));

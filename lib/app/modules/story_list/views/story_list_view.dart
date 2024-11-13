@@ -86,7 +86,7 @@ class StoryListView extends GetView<StoryListController> {
                         Obx(
                           () => Column(
                             children: List.generate(
-                              snapshot.data!.length,
+                              controller.allStory.length,
                               (index) {
                                 final story = controller.allStory[index];
                                 return GestureDetector(
