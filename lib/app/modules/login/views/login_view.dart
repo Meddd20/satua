@@ -137,7 +137,7 @@ class LoginView extends GetView<LoginController> {
                 alignment: Alignment.bottomCenter,
                 child: Center(
                   child: Text(
-                    "Copyright © 2024 Story.AI. All Rights Reserved.",
+                    "Copyright © 2024 Satua. All Rights Reserved.",
                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
                   ),
                 ),

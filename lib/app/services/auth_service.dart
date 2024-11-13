@@ -8,12 +8,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   Future<void> registerAccount(String email, String password, String username) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await addUserDetails(email, username);
+      String? uid = userCredential.user?.uid;
+      if (uid != null) {
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'email': email,
+          'username': username,
+          'createdAt': DateTime.now(),
+        });
+      }
+
       await Future.delayed(const Duration(seconds: 1));
       Get.offNamed(Routes.LOGIN);
     } on FirebaseAuthException catch (e) {
@@ -28,22 +36,9 @@ class AuthService {
     }
   }
 
-  Future<void> addUserDetails(String email, String username) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? uid = prefs.getString('userToken');
-    prefs.setString('username', username);
-
-    await FirebaseFirestore.instance.collection('users').doc(uid).set({
-      'email': email,
-      'username': username,
-      'createdAt': DateTime.now(),
-    });
-  }
-
   Future<void> updateUsername(String username) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? uid = prefs.getString('userToken');
 
       User? user = FirebaseAuth.instance.currentUser;
       if (user == null) {
@@ -51,8 +46,7 @@ class AuthService {
         return;
       }
 
-      uid = user.uid;
-
+      String uid = user.uid;
       await FirebaseFirestore.instance.collection('users').doc(uid).update({
         'username': username,
       });

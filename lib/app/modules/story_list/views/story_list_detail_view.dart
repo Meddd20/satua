@@ -177,14 +177,19 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Checkbox(
-                      value: controller.isRead.value,
-                      onChanged: (isStoryRead) {
-                        controller.isRead.value = isStoryRead!;
-                        controller.isStoryRead(controller.story.id!);
-                      },
-                      activeColor: Colors.black,
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Checkbox(
+                        value: controller.isRead.value,
+                        onChanged: (isStoryRead) {
+                          controller.isRead.value = isStoryRead!;
+                          controller.isStoryRead(controller.story.id!);
+                        },
+                        activeColor: Colors.black,
+                      ),
                     ),
+                    const SizedBox(width: 10),
                     Text(
                       "Sudah selesai membaca",
                       style: TextStyleManager.regular12(fontSize: 14),
@@ -197,7 +202,7 @@ class StoryListDetailView extends GetView<StoryListDetailController> {
                 alignment: Alignment.bottomCenter,
                 child: Center(
                   child: Text(
-                    "Copyright © 2024 Story.AI. All Rights Reserved.",
+                    "Copyright © 2024 Satua. All Rights Reserved.",
                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Color(0xFF666666)),
                   ),
                 ),
