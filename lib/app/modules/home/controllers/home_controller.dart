@@ -13,7 +13,6 @@ class HomeController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     isShowUsername.value = prefs.getBool('isShowUsername') ?? true;
     if (isShowUsername.value) {
-      print("truesnka");
       username.value = prefs.getString('username') ?? "Parents!";
     }
     super.onInit();

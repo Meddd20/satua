@@ -69,8 +69,11 @@ class AuthService {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       String? uid = userCredential.user?.uid;
       DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      final userData = snapshot.data() as Map<String, dynamic>;
-      await prefs.setString('username', userData['username']);
+      final data = snapshot.data();
+      if (data != null) {
+        final userData = data as Map<String, dynamic>;
+        await prefs.setString('username', userData['username']);
+      }
       await prefs.setBool('isShowUsername', true);
 
       String? idToken = await userCredential.user!.getIdToken();
