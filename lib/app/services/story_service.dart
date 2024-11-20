@@ -8,7 +8,7 @@ class StoryService {
     String title,
     String body,
     List<String> reflectiveQuestions,
-    List<String> category,
+    String category,
     bool isRead,
     String name,
     String age,
@@ -21,6 +21,7 @@ class StoryService {
     String primaryValues,
     String? additionalCharacter,
     String? extraDetails,
+    String? randomPrompt,
   ) async {
     Story newStory = Story(
       title: title,
@@ -38,6 +39,7 @@ class StoryService {
       primaryValues: primaryValues,
       additionalCharacter: additionalCharacter ?? "",
       extraDetails: extraDetails ?? "",
+      randomPrompt: randomPrompt ?? "",
       isRead: isRead,
       readTime: (isRead == true) ? DateTime.now().toString() : null,
       createTime: DateTime.now().toString(),
@@ -58,7 +60,7 @@ class StoryService {
     String title,
     String body,
     List<String> reflectiveQuestions,
-    List<String> category,
+    String category,
     bool isRead,
     String name,
     String age,
@@ -71,6 +73,7 @@ class StoryService {
     String primaryValues,
     String? additionalCharacter,
     String? extraDetails,
+    String? randomPrompt,
   ) async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -104,6 +107,9 @@ class StoryService {
       }
       if (existingData?['extraDetails'] != extraDetails) {
         updates['extraDetails'] = extraDetails ?? "";
+      }
+      if (existingData?['randomPrompt'] != randomPrompt) {
+        updates['randomPrompt'] = randomPrompt ?? "";
       }
       if (existingData?['createTime'] == null) updates['createTime'] = DateTime.now().toString();
 
@@ -150,6 +156,63 @@ class StoryService {
     } catch (e) {
       showToast("Terjadi kesalahan saat mengambil cerita: ${e.toString()}");
       return null;
+    }
+  }
+
+  Future<Story?> getLastCreatedStory() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).collection('stories').orderBy('createTime', descending: true).limit(1).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return Story.fromJson(snapshot.docs.first.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      showToast("Terjadi kesalahan saat mengambil cerita: ${e.toString()}");
+      return null;
+    }
+  }
+
+  Future<List<Story>?> getStoryByTags(String selectedTags) async {
+    try {
+      List<String> tags = [
+        "Dongeng",
+        "Cerita Rakyat",
+        "Fantasi",
+        "Persahabatan",
+        "Petualangan",
+        "Komedi",
+        "Tumbuh Dewasa",
+        "Mitos",
+        "Cerita Tradisional",
+        "Sejarah",
+        "Alam",
+        "Fiksi Ilmiah (Sci-fi)",
+      ];
+
+      if (selectedTags.isEmpty || !tags.contains(selectedTags)) {
+        return [];
+      }
+
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').doc(uid).collection('stories').where('category', isEqualTo: selectedTags).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        List<Story> stories = snapshot.docs.map((doc) {
+          return Story.fromJson(doc.data() as Map<String, dynamic>);
+        }).toList();
+        return stories;
+      } else {
+        showToast('Tidak ada cerita dengan tag "$selectedTags"');
+        return [];
+      }
+    } catch (e) {
+      showToast("Terjadi kesalahan saat mengambil cerita: ${e.toString()}");
+      return [];
     }
   }
 

@@ -82,6 +82,45 @@ class StoryListView extends GetView<StoryListController> {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 15),
+                        Obx(
+                          () => Container(
+                            width: Get.width,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Wrap(
+                                alignment: WrapAlignment.start,
+                                children: controller.tags.map((tag) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                                    child: ChoiceChip(
+                                      label: Text(tag),
+                                      selected: controller.selectedTags.value == tag,
+                                      onSelected: (bool isSelected) {
+                                        if (isSelected) {
+                                          controller.fetchFilteredStories(tag);
+                                        } else {
+                                          controller.fetchAllStories();
+                                        }
+                                      },
+                                      labelStyle: TextStyleManager.mediumGray(
+                                        fontSize: 12,
+                                        color: controller.selectedTags.value == tag ? Colors.white : const Color(0xFF666666),
+                                      ),
+                                      backgroundColor: controller.selectedTags.value == tag ? const Color(0xFF00B567) : const Color(0xFFE8E8E8),
+                                      selectedColor: const Color(0xFF00B567),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: const BorderSide(style: BorderStyle.none),
+                                      ),
+                                      showCheckmark: false,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 30),
                         Obx(
                           () => Column(
@@ -114,11 +153,11 @@ class StoryListView extends GetView<StoryListController> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyleManager.regular12(),
                                         ),
-                                        const SizedBox(height: 10.0),
-                                        Wrap(
-                                          spacing: 8.0,
-                                          children: story.category.map((category) => _buildBadge(category)).toList(),
-                                        ),
+                                        // const SizedBox(height: 10.0),
+                                        // Wrap(
+                                        //   spacing: 8.0,
+                                        //   children: story.category.map((category) => _buildBadge(category)).toList(),
+                                        // ),
                                         const SizedBox(height: 15.0),
                                         Text(
                                           DateFormat('d MMMM yyyy').format(DateTime.parse(story.createTime)),

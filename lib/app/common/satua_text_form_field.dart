@@ -11,18 +11,18 @@ class SatuaTextFormFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: const TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
-        const SizedBox(height: 8.0), // Gap between label and input
+        const SizedBox(height: 8.0),
         TextFormField(
           controller: controller,
           decoration: InputDecoration(
-            labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)), // Font size and color for label
+            labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0), // Border radius
-              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0), // Border style
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0), // Border radius
-              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0), // Border style (use the same for focus)
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
             ),
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import 'package:get/get.dart';
+import 'package:satua/app/common/satua_text_form_field_randomizer.dart';
 import 'package:satua/app/core/theme_manager/text_style_manager.dart';
 import 'package:satua/app/model/profile_model.dart';
 import 'package:satua/app/common/satua_text_form_field.dart';
@@ -27,6 +28,25 @@ class DetailsView extends GetView<DetailsController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () => controller.fetchLastCreatedStory(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: const Color(0xFFE8E8E8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Tampilkan isian sebelumnya",
+                          style: TextStyleManager.mediumGray12(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const Text("Nama anak:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
                 const SizedBox(height: 8.0),
                 TypeAheadField<Profile>(
@@ -72,35 +92,37 @@ class DetailsView extends GetView<DetailsController> {
                   controller: controller.ageController,
                 ),
                 const SizedBox(height: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Bahasa:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
-                    const SizedBox(height: 8.0),
-                    DropdownButtonFormField<String>(
-                      value: controller.selectedLang.value.isNotEmpty ? controller.selectedLang.value : null,
-                      onChanged: (String? newValue) {
-                        controller.selectedLang.value = newValue ?? 'English';
-                      },
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Bahasa:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                      const SizedBox(height: 8.0),
+                      DropdownButtonFormField<String>(
+                        value: controller.selectedLang.value.isNotEmpty ? controller.selectedLang.value : null,
+                        onChanged: (String? newValue) {
+                          controller.selectedLang.value = newValue ?? 'English';
+                        },
+                        decoration: InputDecoration(
+                          labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
-                        ),
-                      ),
-                      items: ['English', 'Bahasa Indonesia', 'Bahasa Bali'].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    )
-                  ],
+                        items: ['English', 'Bahasa Indonesia', 'Bahasa Bali'].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 15),
                 Obx(
@@ -141,6 +163,39 @@ class DetailsView extends GetView<DetailsController> {
                   controller: controller.neuroController,
                 ),
                 const SizedBox(height: 15),
+                Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Tema Cerita:", style: TextStyle(fontSize: 12.0, color: Color(0xFF666666))),
+                      const SizedBox(height: 8.0),
+                      DropdownButtonFormField<String>(
+                        value: controller.storyCategory.value.isNotEmpty ? controller.storyCategory.value : null,
+                        onChanged: (String? newValue) {
+                          controller.storyCategory.value = newValue!;
+                        },
+                        decoration: InputDecoration(
+                          labelStyle: const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1.0),
+                          ),
+                        ),
+                        items: ["Dongeng", "Cerita Rakyat", "Fantasi", "Persahabatan", "Petualangan", "Komedi", "Tumbuh Dewasa", "Mitos", "Cerita Tradisional", "Sejarah", "Alam", "Fiksi Ilmiah (Sci-fi)"].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 15),
                 SatuaTextFormFieldWidget(
                   title: 'Cerita ini tentang:',
                   controller: controller.aboutController,
@@ -169,6 +224,50 @@ class DetailsView extends GetView<DetailsController> {
                 SatuaTextFormFieldWidget(
                   title: 'Detail tambahan untuk cerita (opsional)',
                   controller: controller.extraDetailsController,
+                ),
+                const SizedBox(height: 15),
+                Obx(
+                  () => SatuaTextFormFieldRandomizerWidget(
+                    title: 'Randomizer, klik untuk menambahkan prompt random:',
+                    controller: controller.randomPromptController,
+                    childWidget: GestureDetector(
+                      onTap: () async {
+                        controller.generateRandomPrompt();
+                      },
+                      child: Container(
+                        width: 58,
+                        height: 50,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: const Color(0xFF8FDEBC)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: controller.isGeneratingRandomPrompt.value
+                                ? const SizedBox(
+                                    width: 14,
+                                    height: 14,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'assets/images/randomizer.png',
+                                    key: const ValueKey('icon'),
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    suffixIcon: controller.randomPromptController.text.isNotEmpty
+                        ? GestureDetector(
+                            onTap: () {
+                              controller.randomPromptController.clear();
+                            },
+                            child: const Icon(Icons.clear),
+                          )
+                        : null,
+                  ),
                 ),
                 const SizedBox(height: 45),
                 ElevatedButton(

@@ -20,7 +20,6 @@ class ResultController extends GetxController {
   final RxString userPrompt = ''.obs;
   final RxBool isEdited = false.obs;
   RxList<String> questionsList = <String>[].obs;
-  RxList<String> categoriesList = <String>[].obs;
   final Rx<Story?> detailsQuery = Rx<Story?>(null);
 
   final count = 0.obs;
@@ -41,7 +40,7 @@ class ResultController extends GetxController {
         title: title.value.trim(),
         body: body.value.trim(),
         reflectiveQuestions: questionsList,
-        category: categoriesList,
+        category: params['category'] ?? '',
         name: params['name'] ?? '',
         age: params['age'] ?? '',
         language: params['language'] ?? '',
@@ -53,11 +52,14 @@ class ResultController extends GetxController {
         neurodevelopmentalDisorder: params['neuroCondition'] ?? '',
         additionalCharacter: params['additionalCharacter'] ?? '',
         extraDetails: params['extraDetails'] ?? '',
+        randomPrompt: params['randomPrompt'] ?? '',
         isRead: isRead.value,
         readTime: DateTime.now().toString(),
         createTime: DateTime.now().toString(),
         updateTime: DateTime.now().toString(),
       );
+      print("kategori${detailsQuery.value!.category}");
+      print("extraprompt${detailsQuery.value!.randomPrompt}");
     });
     super.onReady();
   }
@@ -107,7 +109,6 @@ class ResultController extends GetxController {
       }
 
       questionsList.value = questions.value.split(',').map((q) => q.trim()).toList();
-      categoriesList.value = categories.value.split(',').map((c) => c.trim()).toList();
     } catch (e) {
       if (e is GeminiException) {
         showToast(e.message.toString());
@@ -138,6 +139,7 @@ class ResultController extends GetxController {
       detailsQuery.value!.primaryValues,
       detailsQuery.value!.additionalCharacter,
       detailsQuery.value!.extraDetails,
+      detailsQuery.value!.randomPrompt,
     );
   }
 
@@ -165,6 +167,7 @@ class ResultController extends GetxController {
       detailsQuery.value!.primaryValues,
       detailsQuery.value!.additionalCharacter,
       detailsQuery.value!.extraDetails,
+      detailsQuery.value!.randomPrompt,
     );
   }
 

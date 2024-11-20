@@ -3,7 +3,7 @@ class Story {
   final String title;
   final String body;
   final List<String> reflectiveQuestions;
-  final List<String> category;
+  final String category;
   final String name;
   final String age;
   final String language;
@@ -15,6 +15,7 @@ class Story {
   final String primaryValues;
   final String? additionalCharacter;
   final String? extraDetails;
+  final String? randomPrompt;
   final bool isRead;
   final String? readTime;
   final String createTime;
@@ -37,6 +38,7 @@ class Story {
     required this.primaryValues,
     this.additionalCharacter,
     this.extraDetails,
+    this.randomPrompt,
     required this.isRead,
     this.readTime,
     required this.createTime,
@@ -49,7 +51,7 @@ class Story {
       title: json['title'] as String,
       body: json['body'] as String,
       reflectiveQuestions: List<String>.from(json['reflectiveQuestions'] as List),
-      category: List<String>.from(json['category'] as List),
+      category: json['category'] as String,
       name: json['name'] as String,
       age: json['age'] as String,
       language: json['language'] as String,
@@ -61,6 +63,7 @@ class Story {
       primaryValues: json['primaryValues'] as String,
       additionalCharacter: json['additionalCharacter'] as String?,
       extraDetails: json['extraDetails'] as String?,
+      randomPrompt: json['randomPrompt'] as String?,
       isRead: json['isRead'] as bool,
       readTime: json['readTime'] as String?,
       createTime: json['createTime'] as String,
@@ -85,6 +88,7 @@ class Story {
       'primaryValues': primaryValues,
       'additionalCharacter': additionalCharacter,
       'extraDetails': extraDetails,
+      'randomPrompt': randomPrompt,
       'isRead': isRead,
       'readTime': readTime,
       'createTime': createTime,

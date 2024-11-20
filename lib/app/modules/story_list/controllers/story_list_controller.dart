@@ -7,6 +7,21 @@ class StoryListController extends GetxController {
   late final Future<List<Story>> stories;
   RxString selectedSortOption = ''.obs;
   final RxList<Story> allStory = <Story>[].obs;
+  RxString selectedTags = "".obs;
+  List<String> tags = [
+    "Dongeng",
+    "Cerita Rakyat",
+    "Fantasi",
+    "Persahabatan",
+    "Petualangan",
+    "Komedi",
+    "Tumbuh Dewasa",
+    "Mitos",
+    "Cerita Tradisional",
+    "Sejarah",
+    "Alam",
+    "Fiksi Ilmiah (Sci-fi)",
+  ];
 
   @override
   void onInit() {
@@ -25,9 +40,19 @@ class StoryListController extends GetxController {
   }
 
   Future<List<Story>> fetchAllStories() async {
+    selectedTags.value = "";
     List<Story> fetchedStoryList = await storyService.getAllStories();
     allStory.addAll(fetchedStoryList);
     return fetchedStoryList;
+  }
+
+  Future<void> fetchFilteredStories(String filterTag) async {
+    selectedTags.value = filterTag;
+    List<Story>? fetchedStoryList = await storyService.getStoryByTags(filterTag);
+    allStory.clear();
+    if (fetchedStoryList!.isNotEmpty) {
+      allStory.addAll(fetchedStoryList);
+    }
   }
 
   void sortStory() {
